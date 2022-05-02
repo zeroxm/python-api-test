@@ -17,7 +17,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        pg_db = get_db()
         error = None
 
         if not username:
@@ -27,12 +27,12 @@ def register():
 
         if error is None:
             try:
-                db.cursor().execute(
+                pg_db.cursor().execute(
                     "INSERT INTO usuario (username, password) VALUES (%s, %s)",
                     (username, generate_password_hash(password)),
                 )
-                db.commit()
-            except db.IntegrityError:
+                pg_db.commit()
+            except pg_db.IntegrityError:
                 error = f"User {username} is already registered."
             else:
                 return redirect(url_for("auth.login"))
@@ -47,9 +47,9 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        pg_db = get_db()
         error = None
-        cursor = db.cursor(cursor_factory=RealDictCursor)
+        cursor = pg_db.cursor(cursor_factory=RealDictCursor)
 
         cursor.execute(
             'SELECT * FROM usuario WHERE username = %s', (username,)
