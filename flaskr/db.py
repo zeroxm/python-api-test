@@ -40,6 +40,7 @@ def init_db():
             print(error_msg)
             pg_db.rollback()
 
+
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
