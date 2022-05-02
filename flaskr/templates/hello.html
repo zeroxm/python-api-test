@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Hello from Flask</title>
+<head>
+  <style>
+    h1 {color:red;}
+  </style>
+</head>
+<h1>
+{% if timeOfDay == 'morning' %}
+  Bom dia,
+{% else %}
+  Hello,
+{% endif %}
+
+{% if name %}
+  {{ name }}!
+{% else %}
+   World!
+{% endif %}
+</h1>
